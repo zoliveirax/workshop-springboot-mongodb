@@ -3,9 +3,16 @@ package com.zoliveirax.workshopmongo.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+//Anotação responsável por interligar dados do MongoDB da classe para com a tabela etc
+@Document(collection="user")
 //Serializable -> conversão de dados em bytes para que dados possam ser trafegados por rede, arquivos etc
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@Id
 	private String id;
 	private String name;
 	private String email;
