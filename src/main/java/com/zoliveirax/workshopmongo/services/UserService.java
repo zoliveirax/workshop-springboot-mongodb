@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zoliveirax.workshopmongo.domain.User;
+import com.zoliveirax.workshopmongo.dto.UserDTO;
+import com.zoliveirax.workshopmongo.dto.UserDTO;
 import com.zoliveirax.workshopmongo.repository.UserRepository;
 import com.zoliveirax.workshopmongo.services.exception.ObjectNotFoundException;
 
@@ -25,6 +27,15 @@ public class UserService {
 	public User findById(String id) {
 		Optional<User> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+	}
+	
+	public User insert(User obj) {
+		return repo.insert(obj);	
+	}
+
+//Considerando o principio da Responsabilidade Única de classes, o objetivo desta implementação foi de aproveitar a instanciação do banco de dados para com a classe em questão, por esse motivo, sendo ele polêmico, não foi aplicado tal princípio.
+	public User fromDTO(UserDTO objDto) {
+		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
 
 }
