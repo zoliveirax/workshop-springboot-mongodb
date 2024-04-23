@@ -35,8 +35,19 @@ public class UserService {
 	public void delete(String id) {
 		repo.deleteById(id);
 	}
+	
+	public User update(User obj) {
+		User newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
 
-//Considerando o principio da Responsabilidade Única de classes, o objetivo desta implementação foi de aproveitar a instanciação do banco de dados para com a classe em questão, por esse motivo, sendo ele polêmico, não foi aplicado tal princípio.
+	private void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());	
+	}
+
+	//Considerando o principio da Responsabilidade Única de classes, o objetivo desta implementação foi de aproveitar a instanciação do banco de dados para com a classe em questão, por esse motivo, sendo ele polêmico, não foi aplicado tal princípio.
 	public User fromDTO(UserDTO objDto) {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
